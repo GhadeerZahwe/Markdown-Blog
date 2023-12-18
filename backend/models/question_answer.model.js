@@ -3,12 +3,12 @@ const mongoose = require("mongoose");
 const questionAnswerSchema = new mongoose.Schema({
   typeId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Type",
+    ref: "Question",
     required: true,
   },
-  questionId: {
+  surveyId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Question",
+    ref: "Survey",
     required: true,
   },
 });
