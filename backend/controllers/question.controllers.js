@@ -1,9 +1,13 @@
+const mongoose = require("mongoose");
 const Question = require("../models/question.model");
 const UserAnswer = require("../models/user_answer.model");
 
 const addQuestion = async (req, res) => {
   if (req.user.admin) {
-    const { question, surveyId, typeId, answers } = req.body;
+    const { question, answers } = req.body;
+
+    const surveyId = new mongoose.Types.ObjectId(req.body.surveyId);
+    const typeId = new mongoose.Types.ObjectId(req.body.TypeId);
 
     if (!surveyId) {
       return res.status(400).json({ message: "ID not found" });
