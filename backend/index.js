@@ -2,20 +2,27 @@ const express = require("express");
 const { connectToMongoDB } = require("./configs/connection");
 const app = express();
 const cors = require("cors");
+const fileUpload = require("express-fileupload");
 
 app.use(express.json());
 require("dotenv").config();
 
 app.use(cors({ origin: "http://localhost:3000" }));
+app.use(fileUpload());
 
 // auth route
 const authRoutes = require("./routes/auth.routes");
 app.use("/auth", authRoutes);
 
 const { authMiddleware } = require("./middlewares/auth.middleware");
+
 //survey routes
 const surveyRoutes = require("./routes/survey.routes");
 app.use("/survey", authMiddleware, surveyRoutes);
+
+//profile routes
+const profileRoutes = require("./routes/profile.routes");
+app.use("/profile", authMiddleware, profileRoutes);
 
 //question routes
 const questionRoutes = require("./routes/question.routes");
