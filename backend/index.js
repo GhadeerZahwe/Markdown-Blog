@@ -4,6 +4,7 @@ const app = express();
 const cors = require("cors");
 const fileUpload = require("express-fileupload");
 
+app.use(express.static("public"));
 app.use(express.json());
 require("dotenv").config();
 
@@ -15,26 +16,21 @@ const authRoutes = require("./routes/auth.routes");
 app.use("/auth", authRoutes);
 
 const { authMiddleware } = require("./middlewares/auth.middleware");
-
 //survey routes
 const surveyRoutes = require("./routes/survey.routes");
 app.use("/survey", authMiddleware, surveyRoutes);
-
-//profile routes
-const profileRoutes = require("./routes/profile.routes");
-app.use("/profile", authMiddleware, profileRoutes);
 
 //question routes
 const questionRoutes = require("./routes/question.routes");
 app.use("/question", authMiddleware, questionRoutes);
 
-//question answer routes
-const questionAnswerRoutes = require("./routes/question_answer.routes");
-app.use("/question_answer", authMiddleware, questionAnswerRoutes);
-
 //user answer routes
 const userAnswerRoutes = require("./routes/user_answer.routes");
 app.use("/user_answer", authMiddleware, userAnswerRoutes);
+
+//profile routes
+const profileRoutes = require("./routes/profile.routes");
+app.use("/profile", authMiddleware, profileRoutes);
 
 app.listen(process.env.PORT, () => {
   console.log("Server listining on PORT: ", process.env.PORT);
