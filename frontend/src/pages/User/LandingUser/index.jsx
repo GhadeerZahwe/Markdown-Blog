@@ -1,11 +1,40 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import Nav from "../../../components/Nav";
+import Survey from "../components/Surveys";
+import Profile from "../../../components/Profile";
+import axios from "axios";
+function Landing() {
+  const [Surveys, setSurveys] = useState([]);
+  const [ShowProfile, setShowProfile] = useState(false);
+  const [ShowSurvey, setShowSurvey] = useState(false);
 
-function LandingUser() {
+  const fetchSurveys = () => {
+    axios
+      .get("http://localhost:3000/survey/surveys", {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("jwt"),
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        setSurveys(res.data.surveys);
+      });
+  };
+  useEffect(() => {
+    fetchSurveys();
+  }, []);
   return (
     <div>
-      <h1>Landing User</h1>
+      <Nav setShowProfile={setShowProfile} setShowSurvey={setShowSurvey} />
+      <div>
+        {ShowProfile && <Profile />}
+        {ShowSurvey &&
+          Surveys.map((survey, index) => (
+            <Survey survey={survey} key={index} />
+          ))}
+      </div>
     </div>
   );
 }
 
-export default LandingUser;
+export default Landing;
