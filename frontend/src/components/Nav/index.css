@@ -1,15 +1,30 @@
+/* index.css */
 .nav {
   display: flex;
   justify-content: space-between;
-  background-color: #d6d6d6;
-  padding: 10px;
-  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
-  margin-bottom: 20px;
+  background-color: #9aabb6; /* Blue background color */
+  padding: 15px 20px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
 }
+
 .logo {
   color: #fff;
-  padding: 5px 10px;
-  border-radius: 20px;
-  background-color: black;
+  font-size: 24px;
+  font-weight: bold;
   cursor: pointer;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-buttons button {
+  background-color: #2ecc71; /* Green button background color */
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }

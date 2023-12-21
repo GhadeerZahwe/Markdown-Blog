@@ -13,7 +13,7 @@ function Survey({ survey: { _id, title } }) {
 
   const getSurvey = () => {
     axios
-      .get("http://localhost:3000/survey/" + _id, {
+      .get("http://localhost:3000/survey/getSurveyById/" + _id, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("jwt"),
         },
@@ -30,7 +30,7 @@ function Survey({ survey: { _id, title } }) {
     console.log(answers);
     axios
       .post(
-        "http://localhost:3000/user_answer/",
+        process.env.REACT_APP_BACKEND_URL + "user_answer/",
         {
           surveyId: _id,
           answers: answers,

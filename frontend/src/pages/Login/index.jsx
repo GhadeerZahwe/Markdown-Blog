@@ -1,63 +1,113 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 import "./index.css";
 
 function Login() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [admin, setAdmin] = useState(false);
   const [register, setRegister] = useState(false);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const MySwal = withReactContent(Swal);
+
   const navigate = useNavigate();
-  const [formdata, setFormdata] = useState({
-    fname: "",
-    lname: "",
-    username: "",
-    password: "",
-  });
-  const handleChange = (e) => {
-    setFormdata({ ...formdata, [e.target.name]: e.target.value });
+
+  const handleLogin = () => {
+    MySwal.fire({
+      title: "Logging In...",
+      didOpen: () => {
+        MySwal.showLoading();
+      },
+    });
+    axios
+      .post(process.env.REACT_APP_BACKEND_URL + "auth/login", {
+        username: username,
+        password: password,
+      })
+      .then((res) => {
+        MySwal.hideLoading();
+        MySwal.close();
+        localStorage.setItem("jwt", res.data.token);
+        localStorage.setItem("user", JSON.stringify(res.data.user));
+        if (res.data.user.admin) {
+          navigate("/landing-admin");
+        } else {
+          navigate("/landing");
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+        MySwal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Invalid Username or Password!",
+        });
+      });
   };
 
-  const handleRegister = async (e) => {
-    e.preventDefault();
-
-    console.log(formdata);
-    try {
-      const response = await axios.post(
-        "http://localhost:3000/auth/register",
-        formdata
-      );
-      console.log(response.data);
-    } catch (e) {
-      console.log(e);
-    }
+  const handleUsernameChange = (e) => {
+    setUsername(e.target.value);
   };
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-
-    console.log(formdata);
-    try {
-      const response = await axios.post(
-        "http://localhost:3000/auth/login",
-        formdata
-      );
-      console.log(response.data);
-      navigate("/landing");
-    } catch (e) {
-      console.log(e);
-    }
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+    console.log("Password: ", password);
   };
 
   const handleToggleRegister = () => {
     setRegister(!register);
   };
 
+  const handleFirstNameChange = (e) => {
+    setFirstName(e.target.value);
+  };
+
+  const handleLastNameChange = (e) => {
+    setLastName(e.target.value);
+  };
+
+  const handleAdminChange = (e) => {
+    setAdmin(e.target.checked);
+  };
+
+  const handleRegister = () => {
+    MySwal.fire({
+      title: "Registering...",
+      didOpen: () => {
+        MySwal.showLoading();
+      },
+    });
+
+    axios
+      .post(process.env.REACT_APP_BACKEND_URL + "auth/register", {
+        fname: firstName,
+        lname: lastName,
+        username: username,
+        password: password,
+      })
+      .then((res) => {
+        MySwal.hideLoading();
+        MySwal.close();
+        setRegister(false);
+      })
+      .catch((e) => {
+        MySwal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Please Try Again!",
+        });
+        console.log(e);
+      });
+  };
+
   return (
     <div className="login flex center full-height">
       {register ? (
-        <form
-          onSubmit={handleRegister}
-          className="flex column gap center login-form"
-        >
+        <div className="flex column gap center  login-form">
           <div>
             <h2>Register</h2>
           </div>
@@ -65,61 +115,53 @@ function Login() {
             <input
               type="text"
               className="input"
-              name="fname"
               placeholder="First Name"
-              onChange={handleChange}
+              onChange={handleFirstNameChange}
             />
           </div>
           <div>
             <input
               type="text"
               className="input"
-              name="lname"
               placeholder="Last Name"
-              onChange={handleChange}
+              onChange={handleLastNameChange}
             />
           </div>
           <div>
             <input
               type="text"
-              name="username"
               className="input"
               placeholder="Username"
-              onChange={handleChange}
+              onChange={handleUsernameChange}
             />
           </div>
           <div>
             <input
               className="input"
-              name="password"
               type="password"
               placeholder="Password"
-              onChange={handleChange}
+              onChange={handlePasswordChange}
             />
           </div>
           <div className="flex gap">
             <input
-              name="admin"
               className="input"
               type="checkbox"
-              onChange={handleChange}
+              onChange={handleAdminChange}
             />
             <label>Admin</label>
           </div>
 
-          <button className="btn" type="submit">
+          <button className="btn" onClick={handleRegister}>
             Register
           </button>
           <p>Already have an account?</p>
           <button className="btn" onClick={handleToggleRegister}>
             Login
           </button>
-        </form>
+        </div>
       ) : (
-        <form
-          onSubmit={handleLogin}
-          className="flex column center gap  login-form"
-        >
+        <div className="flex column center gap  login-form">
           <div>
             <h2>Login</h2>
           </div>
@@ -128,7 +170,7 @@ function Login() {
               type="text"
               className="input"
               placeholder="Username"
-              onChange={handleChange}
+              onChange={handleUsernameChange}
             />
           </div>
           <div>
@@ -136,7 +178,7 @@ function Login() {
               type="password"
               className="input"
               placeholder="Password"
-              onChange={handleChange}
+              onChange={handlePasswordChange}
             />
           </div>
           <div>
@@ -152,7 +194,7 @@ function Login() {
               Register
             </button>
           </div>
-        </form>
+        </div>
       )}
     </div>
   );

@@ -3,6 +3,7 @@ import Nav from "../../../components/Nav";
 import Survey from "../components/Surveys";
 import Profile from "../../../components/Profile";
 import axios from "axios";
+
 function Landing() {
   const [Surveys, setSurveys] = useState([]);
   const [ShowProfile, setShowProfile] = useState(false);
@@ -10,7 +11,7 @@ function Landing() {
 
   const fetchSurveys = () => {
     axios
-      .get("http://localhost:3000/survey/surveys", {
+      .get(process.env.REACT_APP_BACKEND_URL + "survey/", {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("jwt"),
         },

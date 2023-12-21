@@ -1,56 +1,97 @@
-.login {
-  background-image: url("http://localhost:8000/images/background.jpg");
-  background-size: cover;
-  height: 70vh;
-  display: flex;
-  margin-top: 7%;
-  margin-bottom: 4%;
+/* index.css */
+
+/* Body Styles */
+body {
+  font-family: "Arial", sans-serif;
+  margin: 0;
   justify-content: center;
   align-items: center;
+  background-color: #000000da; /* Black background color */
 }
 
-.login-form {
-  background-color: rgba(255, 255, 255, 0.9);
-  width: 400px;
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+/* Container Styles */
+.login-container {
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.95
+  ); /* Slightly increased opacity for a cleaner look */
+  width: 60%; /* Adjusted width for a more centered look */
+  padding: 30px; /* Increased padding for better spacing */
+  border-radius: 15px; /* Rounder corners */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Soft box shadow for depth */
 }
 
-.login-form h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #333;
+/* Heading Styles */
+.login-container h2 {
+  margin-bottom: 30px; /* More space between heading and input fields */
+  color: #fff; /* White heading color */
 }
 
+/* Input Styles */
 .input {
   width: 100%;
-  padding: 10px;
+  padding: 15px; /* Increased padding for more comfortable input */
   margin-bottom: 20px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #ecf0f1; /* Light blue input background */
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
+.input:focus {
+  outline: none;
+  border-color: #2980b9; /* Highlight border color on focus */
+  box-shadow: 0 0 10px rgba(52, 152, 219, 0.5); /* Soft box shadow on focus */
+}
+
+/* Checkbox Styles */
 .checkbox {
   display: flex;
   align-items: center;
   margin-bottom: 20px;
+  color: #fff; /* White checkbox label color */
 }
 
 .checkbox input {
   margin-right: 10px;
 }
 
+/* Button Styles */
 .btn {
   width: 100%;
-  padding: 10px;
-  background-color: #007bff;
+  padding: 15px;
+  background-color: #2980b9; /* Darker blue button background */
   color: #fff;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .btn:hover {
-  background-color: #0056b3;
+  background-color: #1c6384; /* Darker color on hover */
+}
+
+/* Link Styles */
+.link {
+  color: #fff; /* White link color */
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.link:hover {
+  color: #d4e6f1; /* Lighter color on hover */
+}
+
+/* Login Form Styles */
+.login-form {
+  background-color: #ffffff; /* White background color */
+  width: 30vw; /* Adjusted width for a more centered look */
+  padding: 7%;
+  border-radius: 10px; /* Rounder corners */
+  margin-top: 10vh; /* Adjusted margin-top */
 }

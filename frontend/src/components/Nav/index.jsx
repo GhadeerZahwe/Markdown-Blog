@@ -1,8 +1,11 @@
+// Nav.jsx
 import React from "react";
 import "./index.css";
 import { useNavigate } from "react-router-dom";
+
 function Nav({ setShowSurvey, setShowProfile }) {
   const navigate = useNavigate();
+
   const handleLogout = () => {
     localStorage.removeItem("jwt");
     navigate("/");
@@ -17,25 +20,22 @@ function Nav({ setShowSurvey, setShowProfile }) {
     setShowProfile(true);
     setShowSurvey(false);
   };
+
   return (
-    <div className="nav full-width center">
-      <div className="flex gap center">
-        <div className="logo" onClick={handleShowSurvey}>
-          <h3>Survey App</h3>
-        </div>
-        <div>
-          <button className="btn" onClick={handleShowSurvey}>
-            Surveys
-          </button>
-        </div>
-        <div>
-          <button className="btn" onClick={handleShowProfile}>
-            Profile
-          </button>
-        </div>
+    <div className="nav full-width">
+      <div className="logo" onClick={handleShowSurvey}>
+        Survey App
+      </div>
+      <div className="nav-buttons">
+        <button className="btn" onClick={handleShowSurvey}>
+          Surveys
+        </button>
+        <button className="btn" onClick={handleShowProfile}>
+          Profile
+        </button>
       </div>
       <div>
-        <button className="btn danger" onClick={handleLogout}>
+        <button className="btn logout-button" onClick={handleLogout}>
           Logout
         </button>
       </div>

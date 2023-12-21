@@ -8,7 +8,13 @@ app.use(express.static("public"));
 app.use(express.json());
 require("dotenv").config();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    allowedHeaders: "*",
+    credentials: true,
+  })
+);
 app.use(fileUpload());
 
 // auth route

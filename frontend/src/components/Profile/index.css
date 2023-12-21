@@ -1,12 +1,19 @@
-.user-image {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  object-fit: cover;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s ease-in-out;
+/* index.css */
+
+.user-name h1 {
+  font-size: 2em;
+  color: #ece6e6; /* Set your desired text color */
+  text-align: center;
+  text-transform: capitalize; /* Capitalize the first letter of each word */
+  background-color: #1e71a8;
+  padding: 30px;
+  border-radius: 5px;
 }
 
-.user-image:hover {
-  transform: scale(1.1);
+.user-name h1::after {
+  content: ""; /* Add a pseudo-element for the underline effect */
+  display: block;
+  width: 50px; /* Adjust the underline width */
+  height: 3px; /* Adjust the underline height */
+  margin: 8px auto 0; /* Adjust the margin for positioning */
 }
