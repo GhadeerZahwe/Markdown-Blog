@@ -64,12 +64,11 @@ function Survey({ survey: { _id, title } }) {
     setEditQuestion(question);
     setShowAddQuestion(true);
   };
+
   return (
-    <div className="flex column margin survey">
-      <div className="question-title card">
-        <div>
-          <p>Title: {title}</p>
-        </div>
+    <div className={`survey ${showSurvey ? "expanded" : ""}`}>
+      <div className="survey-header">
+        <p className="survey-title">{title}</p>
         <div className="survey-buttons">
           <button className="btn" onClick={handleView}>
             {showSurvey ? "Hide" : "View"}
@@ -83,23 +82,22 @@ function Survey({ survey: { _id, title } }) {
       {showSurvey && (
         <div>
           <h3>Questions</h3>
-          <div className="flex column">
-            {survey.questions?.map((question, index) => {
-              return (
-                <Question
-                  key={index}
-                  question={question}
-                  index={index}
-                  onDelete={onDeleteQuestion}
-                  onEdit={onEditQuestion}
-                />
-              );
-            })}
+          <div className="question-list">
+            {survey.questions?.map((question, index) => (
+              <Question
+                key={index}
+                question={question}
+                index={index}
+                onDelete={onDeleteQuestion}
+                onEdit={onEditQuestion}
+              />
+            ))}
           </div>
         </div>
       )}
+
       {showSurvey && (
-        <div className="flex center">
+        <div className="survey-footer">
           <button className="btn" onClick={handleAddQuestionButton}>
             {showAddQuestion ? "Hide" : "Add Question"}
           </button>
@@ -117,4 +115,5 @@ function Survey({ survey: { _id, title } }) {
     </div>
   );
 }
+
 export default Survey;

@@ -3,6 +3,8 @@ import Survey from "../components/Survey";
 import Nav from "../../../components/Nav";
 import Profile from "../../../components/Profile";
 import axios from "axios";
+import "./index.css";
+
 function Landing() {
   const [Surveys, setSurveys] = useState([]);
   const [ShowSurvey, setShowSurvey] = useState(true);
@@ -31,9 +33,11 @@ function Landing() {
         console.log(e);
       });
   };
+
   const handleAddSurvey = () => {
     setShowAddSurvey(true);
   };
+
   const fetchSurveys = () => {
     axios
       .get(process.env.REACT_APP_BACKEND_URL + "survey", {
@@ -45,25 +49,28 @@ function Landing() {
         setSurveys(res.data.surveys);
       });
   };
+
   useEffect(() => {
     fetchSurveys();
   }, []);
+
   return (
-    <div>
+    <div className="container">
       <Nav setShowProfile={setShowProfile} setShowSurvey={setShowSurvey} />
-      <div>
+      <div className="form-container">
         {ShowProfile && <Profile />}
 
         {ShowSurvey && (
           <div className="flex gap column">
-            <h1>Surveys</h1>
-            <div>
-              {Surveys.map((survey, index) => {
-                return <Survey key={index} survey={survey} />;
-              })}
+            <div className="flex gap column">
+              {Surveys.map((survey, index) => (
+                <div key={index} className="card">
+                  <Survey key={index} survey={survey} />
+                </div>
+              ))}
             </div>
             <div>
-              <button onClick={handleAddSurvey} className="btn">
+              <button onClick={handleAddSurvey} className="btn btn-primary">
                 Create Survey
               </button>
             </div>
@@ -79,7 +86,7 @@ function Landing() {
                   />
                 </div>
 
-                <button className="btn" onClick={AddSurvey}>
+                <button className="btn btn-primary" onClick={AddSurvey}>
                   Add Survey
                 </button>
               </div>

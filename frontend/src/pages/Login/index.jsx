@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
 import "./index.css";
 
 function Login() {
@@ -12,25 +10,16 @@ function Login() {
   const [register, setRegister] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const MySwal = withReactContent(Swal);
 
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    MySwal.fire({
-      title: "Logging In...",
-      didOpen: () => {
-        MySwal.showLoading();
-      },
-    });
     axios
       .post(process.env.REACT_APP_BACKEND_URL + "auth/login", {
         username: username,
         password: password,
       })
       .then((res) => {
-        MySwal.hideLoading();
-        MySwal.close();
         localStorage.setItem("jwt", res.data.token);
         localStorage.setItem("user", JSON.stringify(res.data.user));
         if (res.data.user.admin) {
@@ -41,11 +30,7 @@ function Login() {
       })
       .catch((e) => {
         console.log(e);
-        MySwal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Invalid Username or Password!",
-        });
+        alert("Invalid Username or Password!");
       });
   };
 
@@ -55,7 +40,6 @@ function Login() {
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
-    console.log("Password: ", password);
   };
 
   const handleToggleRegister = () => {
@@ -75,13 +59,6 @@ function Login() {
   };
 
   const handleRegister = () => {
-    MySwal.fire({
-      title: "Registering...",
-      didOpen: () => {
-        MySwal.showLoading();
-      },
-    });
-
     axios
       .post(process.env.REACT_APP_BACKEND_URL + "auth/register", {
         fname: firstName,
@@ -90,17 +67,11 @@ function Login() {
         password: password,
       })
       .then((res) => {
-        MySwal.hideLoading();
-        MySwal.close();
         setRegister(false);
       })
       .catch((e) => {
-        MySwal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Please Try Again!",
-        });
         console.log(e);
+        alert("Please Try Again!");
       });
   };
 
@@ -151,7 +122,6 @@ function Login() {
             />
             <label>Admin</label>
           </div>
-
           <button className="btn" onClick={handleRegister}>
             Register
           </button>

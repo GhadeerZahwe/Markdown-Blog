@@ -1,4 +1,28 @@
-.question:hover {
-  background-color: #b9b8b8;
-  border-radius: 10px;
+.question-container {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.3s;
+}
+
+.question-container:hover {
+  background-color: #f5f5f5;
+}
+
+.question-content {
+  flex-grow: 1;
+}
+
+.question-text {
+  margin-bottom: 8px;
+}
+
+.question-actions {
+  display: flex;
+  gap: 8px;
 }

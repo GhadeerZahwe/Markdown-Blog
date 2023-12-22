@@ -8,15 +8,15 @@ function Question({ question, onDelete, onEdit, isUser, index, answers }) {
   const handleDelete = () => {
     onDelete(question);
   };
+
   const handleEdit = () => {
     onEdit(question);
   };
 
   return (
-    <div className="question flex space-between center padding">
-      <div>
-        <h4>{question.question}</h4>
-
+    <div className={`question-container ${isUser ? "user-question" : ""}`}>
+      <div className="question-content">
+        <h4 className="question-text">{question.question}</h4>
         {question.typeId === "657f0445f4aaced6b5b8d7af" ? ( // Radio
           <RadioQuestion question={question} answers={answers} index={index} />
         ) : question.typeId === "657f052bf4aaced6b5b8d7b0" ? ( // Checkbox
@@ -30,17 +30,13 @@ function Question({ question, onDelete, onEdit, isUser, index, answers }) {
         ) : null}
       </div>
       {!isUser && (
-        <div className="flex gap">
-          <div>
-            <button onClick={handleDelete} className="btn danger">
-              Delete
-            </button>
-          </div>
-          <div>
-            <button onClick={handleEdit} className="btn">
-              Edit
-            </button>
-          </div>
+        <div className="question-actions">
+          <button onClick={handleDelete} className="btn danger">
+            Delete
+          </button>
+          <button onClick={handleEdit} className="btn">
+            Edit
+          </button>
         </div>
       )}
     </div>

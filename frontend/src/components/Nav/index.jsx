@@ -23,9 +23,6 @@ function Nav({ setShowSurvey, setShowProfile }) {
 
   return (
     <div className="nav full-width">
-      <div className="logo" onClick={handleShowSurvey}>
-        Survey App
-      </div>
       <div className="nav-buttons">
         <button className="btn" onClick={handleShowSurvey}>
           Surveys
