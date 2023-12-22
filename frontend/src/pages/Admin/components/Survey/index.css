@@ -47,7 +47,10 @@
 .flex {
   display: flex;
 }
-
+.btn {
+  margin-bottom: 9px;
+  margin-top: 5px;
+}
 .gap {
   gap: 20px;
 }
